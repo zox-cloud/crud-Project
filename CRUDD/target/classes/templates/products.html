@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Product Management</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1c1c1c;
+            color: #fff;
+            margin: 20px;
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        .product-form {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .product-form input, .product-form button {
+            margin-right: 10px;
+            padding: 10px;
+            border: 1px solid #444;
+            border-radius: 5px;
+            background-color: #333;
+            color: #fff;
+        }
+        .product-form input:focus, .product-form button:focus {
+            outline: none;
+            border-color: #666;
+        }
+        .product-form button {
+            background-color: #ff0;
+            color: #000;
+            cursor: pointer;
+        }
+        .product-form button:hover {
+            background-color: #e5e500;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0 auto;
+            background-color: #2a2a2a;
+            color: #fff;
+        }
+        table, th, td {
+            border: 1px solid #444;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #333;
+        }
+        a {
+            color: #ff0;
+            text-decoration: none;
+        }
+        a:hover {
+            color: #e5e500;
+        }
+    </style>
+</head>
+<body>
+<h1>Product Management</h1>
+
+<div class="product-form">
+    <form th:action="@{/products}" th:object="${product}" method="post">
+        <input type="hidden" th:field="*{id}" />
+        <input type="text" th:field="*{name}" placeholder="Product Name">
+        <input type="text" th:field="*{description}" placeholder="Product Description">
+        <input type="number" th:field="*{price}" placeholder="Product Price">
+        <button type="submit" th:text="${product.id} == null ? 'Create Product' : 'Update Product'"></button>
+    </form>
+</div>
+
+<h2>Product List</h2>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="product : ${products}">
+        <td th:text="${product.id}">1</td>
+        <td th:text="${product.name}">Product Name</td>
+        <td th:text="${product.description}">Product Description</td>
+        <td th:text="${product.price}">10.0</td>
+        <td>
+            <a th:href="@{/products/edit/{id}(id=${product.id})}">Edit</a>
+            <a th:href="@{/products/delete/{id}(id=${product.id})}">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
