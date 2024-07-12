@@ -1,2 +1,2 @@
 # crud-Project
-Simple Sign Up/Login and crud project with dataBase(postgreSql)
+Simple Sign Up/Login and crud project with dataBase(postgreSql) and SpringBoot
